@@ -3,8 +3,8 @@ CFLAGS = -g -O -Wall -W -pedantic -std=c99 -O0 -I. -I/raylib/src -I../src -DPLAT
 LDFLAGS = -L/raylib/src -L/opt/vc/lib
 LDLIBS = -lraylib -lm 
 
-chess: src_files/main.c
+chess: src_files/main.c src_files/chess.c src_files/chess.h src_files/chess.h
 	gcc $(CFLAGS) $(LDFLAGS) src_files/main.c -o chess $(LDLIBS)
-install: src_files/main.c
+install: src_files/main.c src_files/chess.c src_files/chess.h src_files/chess.h
 	gcc $(CFLAGS) $(LDFLAGS) src_files/main.c -o chess $(LDLIBS) && cp ./chess $(HOME)/.local/bin/
 
