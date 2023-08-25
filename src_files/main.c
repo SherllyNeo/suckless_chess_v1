@@ -5,13 +5,15 @@
 #include "chess.h"
 #include "shared.h"
 
+#define HISTORY_SIZE 100
+
 int main(int argc, char *argv[])
 {
     char* fen_string = NULL;
     /* get args */
     for (int a = 0; a<argc; a++) {
         if (!strcmp(argv[a],"--fen")) {
-           fen_string = argv[++a];
+            fen_string = argv[++a];
         }
     }
 
@@ -19,6 +21,9 @@ int main(int argc, char *argv[])
     const int screenWidth = 900;
     const int screenHeight = 900;
     chess_square chess_board[BOARD_WIDTH][BOARD_HEIGHT];
+    chess_square chess_board_history[HISTORY_SIZE][BOARD_WIDTH][BOARD_HEIGHT];
+    int history_len = 0;
+    int history_index = 0;
     float board_origin_x = screenWidth / 20;
     float board_origin_y = screenHeight / 5;
 
@@ -43,6 +48,7 @@ int main(int argc, char *argv[])
         ResetBoard(chess_board);
     }
 
+    memcpy(chess_board_history[0],chess_board,sizeof(chess_board));
 
     /* Make window resizable */
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);  
@@ -105,6 +111,7 @@ int main(int argc, char *argv[])
     int squareState[BOARD_WIDTH][BOARD_HEIGHT] = { 0 };
     int show_names = 0;
     int flip = 0;
+    int change_flag = 1;
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -122,8 +129,12 @@ int main(int argc, char *argv[])
                 chess_square_as_rec.height = cur_sqr.height;
                 if (CheckCollisionPointRec(mousePoint,chess_square_as_rec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                     squareState[x][y] = 1;
+                    if (hand_buffer != NONE)
+                        change_flag = 1;
                 }
                 else if (CheckCollisionPointRec(mousePoint,chess_square_as_rec) && IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
+                    if (chess_board[x][y].piece != NONE)
+                        change_flag = 1;
                     chess_board[x][y].piece = NONE;
                 }
                 else  {
@@ -162,23 +173,30 @@ int main(int argc, char *argv[])
         }
 
         /* Listen for keys */
-        ListenForKeys(chess_board, &hand_buffer, &flip);
+        ListenForKeys(chess_board, chess_board_history,history_len,&history_index,&hand_buffer, &flip);
 
         /* Draw placements */
         DrawPlacement(chess_board, squareState, &hand_buffer,board_origin_x,board_origin_y,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
 
-    
 
 
 
-EndDrawing();
-//----------------------------------------------------------------------------------
-}
 
-// De-Initialization
-//--------------------------------------------------------------------------------------
-CloseWindow();        // Close window and OpenGL context
-                      //--------------------------------------------------------------------------------------
+        EndDrawing();
+        /* save if any changes */
+        if (change_flag) {
+             history_len = (history_len + 1) % HISTORY_SIZE; 
+             history_index = history_len;
+             memcpy(chess_board_history[history_len],chess_board,sizeof(chess_board));
+             printf("\nnew length: %d\n",history_len);
+             change_flag = 0;
+         }
 
-return EXIT_SUCCESS;
+        // De-Initialization
+        //--------------------------------------------------------------------------------------
+                              //--------------------------------------------------------------------------------------
+
+    }
+    CloseWindow();        // Close window and OpenGL context
+    return EXIT_SUCCESS;
 }
