@@ -82,7 +82,6 @@ Texture2D piece_to_pic(chess_piece piece, Texture2D wP, Texture2D wK, Texture2D 
     return piece_pic;
 }
 
-
 int main(void)
 {
     const int screenWidth = 900;
@@ -171,7 +170,6 @@ int main(void)
     chess_piece hand_buffer = NONE;
     int squareState[BOARD_WIDTH][BOARD_HEIGHT] = { 0 };
 
-    // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         mousePoint = GetMousePosition();
@@ -368,7 +366,6 @@ int main(void)
                         Texture2D piece_texture =  piece_to_pic(cur_sqr.piece,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
                         DrawTexture(piece_texture,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_WIDTH*y , WHITE);
                         hand_buffer = NONE;
-
                     }
                 }
             }
