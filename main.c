@@ -174,48 +174,10 @@ int main(void)
             chess_board[x][y].row = y;
             chess_board[x][y].col = x;
             chess_board[x][y].piece = NONE;
-            if (y == 6) {
-                chess_board[x][y].piece = W_PAWN;
-            }
-            if (y == 1) {
-                chess_board[x][y].piece = B_PAWN;
-            }
-            if ( y == 0 ) {
-                if (x == 0 || x == 7) {
-                    chess_board[x][y].piece = B_ROOK;
-                }
-                if (x == 1 || x == 6) {
-                    chess_board[x][y].piece = B_KNIGHT;
-                }
-                if (x == 2 || x == 5) {
-                    chess_board[x][y].piece = B_BISHOP;
-                }
-                if (x == 3 ) {
-                    chess_board[x][y].piece = B_QUEEN;
-                }
-                if (x == 4 ) {
-                    chess_board[x][y].piece = B_KING;
-                }
-            }
-            if ( y == 7 ) {
-                if (x == 0 || x == 7) {
-                    chess_board[x][y].piece = W_ROOK;
-                }
-                if (x == 1 || x == 6) {
-                    chess_board[x][y].piece = W_KNIGHT;
-                }
-                if (x == 2 || x == 5) {
-                    chess_board[x][y].piece = W_BISHOP;
-                }
-                if (x == 3 ) {
-                    chess_board[x][y].piece = W_QUEEN;
-                }
-                if (x == 4 ) {
-                    chess_board[x][y].piece = W_KING;
-                }
-            }
         }
     }
+    ResetBoard(chess_board);
+
 
     /* Make window resizable */
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);  
