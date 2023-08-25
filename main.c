@@ -84,6 +84,76 @@ Texture2D piece_to_pic(chess_piece piece, Texture2D wP, Texture2D wK, Texture2D 
     return piece_pic;
 }
 
+void ClearBoard(chess_square chess_board[BOARD_HEIGHT][BOARD_WIDTH]) {
+    for (int y = 0; y < BOARD_HEIGHT; y++)
+    {
+        for (int x = 0; x < BOARD_WIDTH; x++)
+        {
+            chess_board[x][y].piece = NONE;
+        }
+    }
+}
+
+void ResetBoard(chess_square chess_board[BOARD_HEIGHT][BOARD_WIDTH]) {
+
+    for (int y = 0; y < BOARD_HEIGHT; y++)
+    {
+        for (int x = 0; x < BOARD_WIDTH; x++)
+        {
+            chess_board[x][y].piece = NONE;
+        }
+    }
+
+    for (int y = 0; y < BOARD_HEIGHT; y++)
+    {
+        for (int x = 0; x < BOARD_WIDTH; x++)
+        {
+            if (y == 6) {
+                chess_board[x][y].piece = W_PAWN;
+            }
+            if (y == 1) {
+                chess_board[x][y].piece = B_PAWN;
+            }
+            if ( y == 0 ) {
+                if (x == 0 || x == 7) {
+                    chess_board[x][y].piece = B_ROOK;
+                }
+                if (x == 1 || x == 6) {
+                    chess_board[x][y].piece = B_KNIGHT;
+                }
+                if (x == 2 || x == 5) {
+                    chess_board[x][y].piece = B_BISHOP;
+                }
+                if (x == 3 ) {
+                    chess_board[x][y].piece = B_QUEEN;
+                }
+                if (x == 4 ) {
+                    chess_board[x][y].piece = B_KING;
+                }
+            }
+            if ( y == 7 ) {
+                if (x == 0 || x == 7) {
+                    chess_board[x][y].piece = W_ROOK;
+                }
+                if (x == 1 || x == 6) {
+                    chess_board[x][y].piece = W_KNIGHT;
+                }
+                if (x == 2 || x == 5) {
+                    chess_board[x][y].piece = W_BISHOP;
+                }
+                if (x == 3 ) {
+                    chess_board[x][y].piece = W_QUEEN;
+                }
+                if (x == 4 ) {
+                    chess_board[x][y].piece = W_KING;
+                }
+            }
+        }
+    }
+}
+
+
+
 int main(void)
 {
     const int screenWidth = 900;
@@ -319,71 +389,12 @@ int main(void)
         }
         if (IsKeyDown(KEY_C) && IsKeyDown(KEY_LEFT_SHIFT))
         {
-            for (int y = 0; y < BOARD_HEIGHT; y++)
-            {
-                for (int x = 0; x < BOARD_WIDTH; x++)
-                {
-                    chess_board[x][y].piece = NONE;
-                }
-            }
+            ClearBoard(chess_board);
         }
 
         if (IsKeyDown(KEY_C) && !IsKeyDown(KEY_LEFT_SHIFT))
         {
-            for (int y = 0; y < BOARD_HEIGHT; y++)
-            {
-                for (int x = 0; x < BOARD_WIDTH; x++)
-                {
-                    chess_board[x][y].piece = NONE;
-                }
-            }
-            for (int y = 0; y < BOARD_HEIGHT; y++)
-            {
-                for (int x = 0; x < BOARD_WIDTH; x++)
-                {
-                    if (y == 6) {
-                        chess_board[x][y].piece = W_PAWN;
-                    }
-                    if (y == 1) {
-                        chess_board[x][y].piece = B_PAWN;
-                    }
-                    if ( y == 0 ) {
-                        if (x == 0 || x == 7) {
-                            chess_board[x][y].piece = B_ROOK;
-                        }
-                        if (x == 1 || x == 6) {
-                            chess_board[x][y].piece = B_KNIGHT;
-                        }
-                        if (x == 2 || x == 5) {
-                            chess_board[x][y].piece = B_BISHOP;
-                        }
-                        if (x == 3 ) {
-                            chess_board[x][y].piece = B_QUEEN;
-                        }
-                        if (x == 4 ) {
-                            chess_board[x][y].piece = B_KING;
-                        }
-                    }
-                    if ( y == 7 ) {
-                        if (x == 0 || x == 7) {
-                            chess_board[x][y].piece = W_ROOK;
-                        }
-                        if (x == 1 || x == 6) {
-                            chess_board[x][y].piece = W_KNIGHT;
-                        }
-                        if (x == 2 || x == 5) {
-                            chess_board[x][y].piece = W_BISHOP;
-                        }
-                        if (x == 3 ) {
-                            chess_board[x][y].piece = W_QUEEN;
-                        }
-                        if (x == 4 ) {
-                            chess_board[x][y].piece = W_KING;
-                        }
-                    }
-                }
-            }
-
+            ResetBoard(chess_board);
         }
 
 
