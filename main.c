@@ -145,22 +145,53 @@ int main(void)
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);    // Window configuration flags
     InitWindow(screenWidth, screenHeight, "Simple Chess");
 
+    char* home = getenv("HOME");
+    char path_to_assets[100];
+    sprintf(path_to_assets,"%s/.local/share/chess/chess_pieces/",home);
 
-    Texture2D wP = LoadTexture("./chess_pieces/wP.png");
-    Texture2D wK = LoadTexture("./chess_pieces/wK.png");
-    Texture2D wQ =  LoadTexture("./chess_pieces/wQ.png");
-    Texture2D wB =  LoadTexture("./chess_pieces/wB.png");
-    Texture2D wN =  LoadTexture("./chess_pieces/wN.png");
-    Texture2D wR =  LoadTexture("./chess_pieces/wR.png");
-    Texture2D bK =  LoadTexture("./chess_pieces/bK.png");
-    Texture2D bQ =  LoadTexture("./chess_pieces/bQ.png");
-    Texture2D bB =  LoadTexture("./chess_pieces/bB.png");
-    Texture2D bN =  LoadTexture("./chess_pieces/bN.png");
-    Texture2D bR =  LoadTexture("./chess_pieces/bR.png");
-    Texture2D bP =  LoadTexture("./chess_pieces/bP.png");
-    Texture2D blank =  LoadTexture("./chess_pieces/blank.png");
-    wP.width = SQUARE_WIDTH - 2;
-    wP.height = SQUARE_HEIGHT - 2;
+    char path_to_wp[200];
+    char path_to_wk[200];
+    char path_to_wq[200];
+    char path_to_wb[200];
+    char path_to_wn[200];
+    char path_to_wr[200];
+    char path_to_bk[200];
+    char path_to_bq[200];
+    char path_to_bb[200];
+    char path_to_bn[200];
+    char path_to_br[200];
+    char path_to_bp[200];
+    char path_to_blank[200];
+
+    sprintf(path_to_wp,"%s%s",path_to_assets,"wP.png");
+    sprintf(path_to_wk,"%s%s",path_to_assets,"wK.png");
+    sprintf(path_to_wq,"%s%s",path_to_assets,"wQ.png");
+    sprintf(path_to_wb,"%s%s",path_to_assets,"wB.png");
+    sprintf(path_to_wn,"%s%s",path_to_assets,"wN.png");
+    sprintf(path_to_wr,"%s%s",path_to_assets,"wR.png");
+    sprintf(path_to_bk,"%s%s",path_to_assets,"bK.png");
+    sprintf(path_to_bq,"%s%s",path_to_assets,"bQ.png");
+    sprintf(path_to_bb,"%s%s",path_to_assets,"bB.png");
+    sprintf(path_to_bn,"%s%s",path_to_assets,"bN.png");
+    sprintf(path_to_br,"%s%s",path_to_assets,"bR.png");
+    sprintf(path_to_bp,"%s%s",path_to_assets,"bP.png");
+    sprintf(path_to_blank,"%s%s",path_to_assets,"blank.png");
+
+    printf("\npath to white pawn: %s\n",path_to_bp);
+
+    Texture2D wP = LoadTexture(path_to_wp);
+    Texture2D wK = LoadTexture(path_to_wk);
+    Texture2D wQ = LoadTexture(path_to_wq);
+    Texture2D wB = LoadTexture(path_to_wb);
+    Texture2D wN = LoadTexture(path_to_wn);
+    Texture2D wR = LoadTexture(path_to_wr);
+    Texture2D bK = LoadTexture(path_to_bk);
+    Texture2D bQ = LoadTexture(path_to_bq);
+    Texture2D bB = LoadTexture(path_to_bb);
+    Texture2D bN = LoadTexture(path_to_bn);
+    Texture2D bR = LoadTexture(path_to_br);
+    Texture2D bP = LoadTexture(path_to_bp);
+    Texture2D blank = LoadTexture(path_to_blank);
 
 
     char* letters[8] = {"A","B","C","D","E","F","G","H"};
