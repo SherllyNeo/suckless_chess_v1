@@ -195,7 +195,7 @@ int main(void)
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
-        DrawText("Simple Chess", screenWidth / 2, 0, 100, BLACK);
+        DrawText("Simple Chess",0, 0, 100, BLACK);
 
         ClearBackground(BROWN);
         int font_size = 45;
@@ -223,7 +223,7 @@ int main(void)
 
                     char square_name[30];
                     sprintf(square_name,"%s%s",letters[x],numbers[y]);
-                    DrawText(square_name,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y,SQUARE_WIDTH/2,GRAY);
+                    DrawText(square_name,board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH/4) , board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT/4),SQUARE_WIDTH/2,GRAY);
                 }
 
                 if (IsKeyDown(KEY_Q))
