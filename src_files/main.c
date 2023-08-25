@@ -130,7 +130,11 @@ int main(int argc, char *argv[])
                 if (CheckCollisionPointRec(mousePoint,chess_square_as_rec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                     squareState[x][y] = 1;
                     if (hand_buffer != NONE)
+                    {
                         change_flag = 1;
+                        if (history_index < history_len)
+                            history_len = history_index;
+                    }
                 }
                 else if (CheckCollisionPointRec(mousePoint,chess_square_as_rec) && IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
                     if (chess_board[x][y].piece != NONE)
