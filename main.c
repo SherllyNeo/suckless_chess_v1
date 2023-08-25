@@ -245,6 +245,33 @@ void DrawPlacement(chess_square chess_board[8][8],int squareState[8][8],chess_pi
         }
 }
 
+void DrawBoard(int board_origin_x, int board_origin_y,chess_square chess_board[BOARD_HEIGHT][BOARD_WIDTH], int show_names,char* numbers[8], char* letters[8],Texture2D wP, Texture2D wK, Texture2D wQ, Texture2D wB, Texture2D wN, Texture2D wR, Texture2D bK, Texture2D bQ, Texture2D bB, Texture2D bN, Texture2D bR, Texture2D bP,Texture2D blank) {
+        for (int y = 0; y < BOARD_HEIGHT; y++)
+        {
+            DrawText(numbers[y],board_origin_x + BOARD_WIDTH - SQUARE_WIDTH + 15,board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT / 3) - 10,FONT_SIZE, GRAY);
+            for (int x = 0; x < BOARD_WIDTH; x++)
+            {
+                DrawText(letters[x],board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH / 3), board_origin_y + SQUARE_HEIGHT*BOARD_HEIGHT, FONT_SIZE, GRAY);
+
+                chess_square cur_sqr = chess_board[x][y];
+                DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
+                if (cur_sqr.piece != NONE)   {
+                    Texture2D piece_texture =  piece_to_pic(cur_sqr.piece,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
+                    DrawTexture(piece_texture,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_WIDTH*y , WHITE);
+                }
+
+                if (show_names)
+                {
+                    DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
+
+                    char square_name[30];
+                    sprintf(square_name,"%s%s",letters[x],numbers[y]);
+                    DrawText(square_name,board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH/4) , board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT/4),SQUARE_WIDTH/2,GRAY);
+                }
+            }
+        }
+}
+
 
 int main(void)
 {
@@ -358,6 +385,8 @@ int main(void)
             }
         }
 
+        /* draw board */
+        DrawBoard(board_origin_x,board_origin_y,chess_board,show_names,numbers,letters,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
 
         /* toggle show names flag */
         if (IsKeyPressed(KEY_SPACE)) 
@@ -368,30 +397,6 @@ int main(void)
         DrawText("Simple Chess",0, 0, TITLE_SIZE, BLACK);
 
         ClearBackground(BROWN);
-        for (int y = 0; y < BOARD_HEIGHT; y++)
-        {
-            DrawText(numbers[y],board_origin_x + BOARD_WIDTH - SQUARE_WIDTH + 15,board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT / 3) - 10,FONT_SIZE, GRAY);
-            for (int x = 0; x < BOARD_WIDTH; x++)
-            {
-                DrawText(letters[x],board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH / 3), board_origin_y + SQUARE_HEIGHT*BOARD_HEIGHT, FONT_SIZE, GRAY);
-
-                chess_square cur_sqr = chess_board[x][y];
-                DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
-                if (cur_sqr.piece != NONE)   {
-                    Texture2D piece_texture =  piece_to_pic(cur_sqr.piece,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
-                    DrawTexture(piece_texture,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_WIDTH*y , WHITE);
-                }
-
-                if (show_names)
-                {
-                    DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
-
-                    char square_name[30];
-                    sprintf(square_name,"%s%s",letters[x],numbers[y]);
-                    DrawText(square_name,board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH/4) , board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT/4),SQUARE_WIDTH/2,GRAY);
-                }
-            }
-        }
 
 
         /* draw dragging */
