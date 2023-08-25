@@ -210,7 +210,7 @@ int main(void)
             for (int x = 0; x < BOARD_WIDTH; x++)
             {
                 chess_square cur_sqr = chess_board[x][y];
-                DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BLACK);
+                DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
                 if (cur_sqr.piece != NONE)   {
                     Texture2D piece_texture =  piece_to_pic(cur_sqr.piece,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
                     DrawTexture(piece_texture,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_WIDTH*y , WHITE);
@@ -218,7 +218,7 @@ int main(void)
                 
                 if (IsKeyDown(KEY_SPACE))
                 {
-                    DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BLACK);
+                    DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
 
                     char square_name[30];
                     sprintf(square_name,"%s%s",letters[x],numbers[y]);
