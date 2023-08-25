@@ -345,7 +345,7 @@ int main(void)
 
                 if (hand_buffer != NONE) {
                     Texture2D piece_texture =  piece_to_pic(hand_buffer,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
-                    DrawTexture(piece_texture,mousePoint.x,mousePoint.y, WHITE);
+                    DrawTexture(piece_texture,mousePoint.x - SQUARE_WIDTH / 2,mousePoint.y - SQUARE_HEIGHT / 2, WHITE);
                 }
 
                 if (squareState[x][y])
