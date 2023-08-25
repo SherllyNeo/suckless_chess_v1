@@ -88,7 +88,7 @@ int main(void)
     const int screenHeight = 900;
     chess_square chess_board[BOARD_WIDTH][BOARD_HEIGHT];
     float board_origin_x = screenWidth / 20;
-    float board_origin_y = screenHeight / 10;
+    float board_origin_y = screenHeight / 5;
 
     for (int y = 0; y < BOARD_HEIGHT; y++)
     {
@@ -195,6 +195,7 @@ int main(void)
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
+        DrawText("Simple Chess", screenWidth / 2, 0, 100, BLACK);
 
         ClearBackground(BROWN);
         int font_size = 45;
