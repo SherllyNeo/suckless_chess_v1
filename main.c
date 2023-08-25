@@ -90,6 +90,7 @@ int main(void)
     float board_origin_x = screenWidth / 20;
     float board_origin_y = screenHeight / 5;
 
+    
     for (int y = 0; y < BOARD_HEIGHT; y++)
     {
         for (int x = 0; x < BOARD_WIDTH; x++)
@@ -200,6 +201,7 @@ int main(void)
     Vector2 mousePoint = { 0.0f, 0.0f };
     chess_piece hand_buffer = NONE;
     int squareState[BOARD_WIDTH][BOARD_HEIGHT] = { 0 };
+    int show_names = 0;
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -228,6 +230,8 @@ int main(void)
 
         // Draw
         //----------------------------------------------------------------------------------
+        if (IsKeyPressed(KEY_SPACE)) 
+            show_names = !show_names;
         BeginDrawing();
         DrawText("Simple Chess",0, 0, 100, BLACK);
 
@@ -251,7 +255,7 @@ int main(void)
                     DrawTexture(piece_texture,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_WIDTH*y , WHITE);
                 }
                 
-                if (IsKeyDown(KEY_SPACE))
+                if (show_names)
                 {
                     DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
 
