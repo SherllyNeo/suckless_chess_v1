@@ -92,7 +92,9 @@ int main(void)
     float board_origin_x = screenWidth / 20;
     float board_origin_y = screenHeight / 5;
 
-    
+
+    /* INIT BOARD */
+
     for (int y = 0; y < BOARD_HEIGHT; y++)
     {
         for (int x = 0; x < BOARD_WIDTH; x++)
@@ -145,7 +147,8 @@ int main(void)
         }
     }
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);    // Window configuration flags
+    /* Make window resizable */
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);  
     InitWindow(screenWidth, screenHeight, "Simple Chess");
 
     char* home = getenv("HOME");
@@ -231,7 +234,7 @@ int main(void)
             }
         }
 
-        
+
         /* toggle show names flag */
         if (IsKeyPressed(KEY_SPACE)) 
             show_names = !show_names;
@@ -254,7 +257,7 @@ int main(void)
                     Texture2D piece_texture =  piece_to_pic(cur_sqr.piece,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
                     DrawTexture(piece_texture,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_WIDTH*y , WHITE);
                 }
-                
+
                 if (show_names)
                 {
                     DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
@@ -263,130 +266,137 @@ int main(void)
                     sprintf(square_name,"%s%s",letters[x],numbers[y]);
                     DrawText(square_name,board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH/4) , board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT/4),SQUARE_WIDTH/2,GRAY);
                 }
+            }
+        }
 
-                if (IsKeyDown(KEY_Q))
+        if (IsKeyDown(KEY_Q))
+        {
+            hand_buffer = W_QUEEN;
+        }
+        if (IsKeyDown(KEY_K))
+        {
+            hand_buffer = W_KING;
+        }
+        if (IsKeyDown(KEY_P))
+        {
+            hand_buffer = W_PAWN;
+        }
+        if (IsKeyDown(KEY_N))
+        {
+            hand_buffer = W_KNIGHT;
+        }
+        if (IsKeyDown(KEY_R))
+        {
+            hand_buffer = W_ROOK;
+        }
+        if (IsKeyDown(KEY_B))
+        {
+            hand_buffer = W_BISHOP;
+        }
+        if (IsKeyDown(KEY_Q) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            hand_buffer = B_QUEEN;
+        }
+        if (IsKeyDown(KEY_K) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            hand_buffer = B_KING;
+        }
+        if (IsKeyDown(KEY_P) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            hand_buffer = B_PAWN;
+        }
+        if (IsKeyDown(KEY_N) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            hand_buffer = B_KNIGHT;
+        }
+        if (IsKeyDown(KEY_R) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            hand_buffer = B_ROOK;
+        }
+        if (IsKeyDown(KEY_B) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            hand_buffer = B_BISHOP;
+        }
+        if (IsKeyDown(KEY_C) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            for (int y = 0; y < BOARD_HEIGHT; y++)
+            {
+                for (int x = 0; x < BOARD_WIDTH; x++)
                 {
-                        hand_buffer = W_QUEEN;
+                    chess_board[x][y].piece = NONE;
                 }
-                if (IsKeyDown(KEY_K))
+            }
+        }
+
+        if (IsKeyDown(KEY_C) && !IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            for (int y = 0; y < BOARD_HEIGHT; y++)
+            {
+                for (int x = 0; x < BOARD_WIDTH; x++)
                 {
-                        hand_buffer = W_KING;
+                    chess_board[x][y].piece = NONE;
                 }
-                if (IsKeyDown(KEY_P))
+            }
+            for (int y = 0; y < BOARD_HEIGHT; y++)
+            {
+                for (int x = 0; x < BOARD_WIDTH; x++)
                 {
-                        hand_buffer = W_PAWN;
-                }
-                if (IsKeyDown(KEY_N))
-                {
-                        hand_buffer = W_KNIGHT;
-                }
-                if (IsKeyDown(KEY_R))
-                {
-                        hand_buffer = W_ROOK;
-                }
-                if (IsKeyDown(KEY_B))
-                {
-                        hand_buffer = W_BISHOP;
-                }
-                if (IsKeyDown(KEY_Q) && IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                        hand_buffer = B_QUEEN;
-                }
-                if (IsKeyDown(KEY_K) && IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                        hand_buffer = B_KING;
-                }
-                if (IsKeyDown(KEY_P) && IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                        hand_buffer = B_PAWN;
-                }
-                if (IsKeyDown(KEY_N) && IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                        hand_buffer = B_KNIGHT;
-                }
-                if (IsKeyDown(KEY_R) && IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                        hand_buffer = B_ROOK;
-                }
-                if (IsKeyDown(KEY_B) && IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                        hand_buffer = B_BISHOP;
-                }
-                if (IsKeyDown(KEY_C) && IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                    for (int y = 0; y < BOARD_HEIGHT; y++)
-                    {
-                        for (int x = 0; x < BOARD_WIDTH; x++)
-                        {
-                            chess_board[x][y].piece = NONE;
+                    if (y == 6) {
+                        chess_board[x][y].piece = W_PAWN;
+                    }
+                    if (y == 1) {
+                        chess_board[x][y].piece = B_PAWN;
+                    }
+                    if ( y == 0 ) {
+                        if (x == 0 || x == 7) {
+                            chess_board[x][y].piece = B_ROOK;
+                        }
+                        if (x == 1 || x == 6) {
+                            chess_board[x][y].piece = B_KNIGHT;
+                        }
+                        if (x == 2 || x == 5) {
+                            chess_board[x][y].piece = B_BISHOP;
+                        }
+                        if (x == 3 ) {
+                            chess_board[x][y].piece = B_QUEEN;
+                        }
+                        if (x == 4 ) {
+                            chess_board[x][y].piece = B_KING;
+                        }
+                    }
+                    if ( y == 7 ) {
+                        if (x == 0 || x == 7) {
+                            chess_board[x][y].piece = W_ROOK;
+                        }
+                        if (x == 1 || x == 6) {
+                            chess_board[x][y].piece = W_KNIGHT;
+                        }
+                        if (x == 2 || x == 5) {
+                            chess_board[x][y].piece = W_BISHOP;
+                        }
+                        if (x == 3 ) {
+                            chess_board[x][y].piece = W_QUEEN;
+                        }
+                        if (x == 4 ) {
+                            chess_board[x][y].piece = W_KING;
                         }
                     }
                 }
+            }
 
-                if (IsKeyDown(KEY_C) && !IsKeyDown(KEY_LEFT_SHIFT))
-                {
-                    for (int y = 0; y < BOARD_HEIGHT; y++)
-                    {
-                        for (int x = 0; x < BOARD_WIDTH; x++)
-                        {
-                            chess_board[x][y].piece = NONE;
-                        }
-                    }
-                    for (int y = 0; y < BOARD_HEIGHT; y++)
-                    {
-                        for (int x = 0; x < BOARD_WIDTH; x++)
-                        {
-                            if (y == 6) {
-                                chess_board[x][y].piece = W_PAWN;
-                            }
-                            if (y == 1) {
-                                chess_board[x][y].piece = B_PAWN;
-                            }
-                            if ( y == 0 ) {
-                                if (x == 0 || x == 7) {
-                                    chess_board[x][y].piece = B_ROOK;
-                                }
-                                if (x == 1 || x == 6) {
-                                    chess_board[x][y].piece = B_KNIGHT;
-                                }
-                                if (x == 2 || x == 5) {
-                                    chess_board[x][y].piece = B_BISHOP;
-                                }
-                                if (x == 3 ) {
-                                    chess_board[x][y].piece = B_QUEEN;
-                                }
-                                if (x == 4 ) {
-                                    chess_board[x][y].piece = B_KING;
-                                }
-                            }
-                            if ( y == 7 ) {
-                                if (x == 0 || x == 7) {
-                                    chess_board[x][y].piece = W_ROOK;
-                                }
-                                if (x == 1 || x == 6) {
-                                    chess_board[x][y].piece = W_KNIGHT;
-                                }
-                                if (x == 2 || x == 5) {
-                                    chess_board[x][y].piece = W_BISHOP;
-                                }
-                                if (x == 3 ) {
-                                    chess_board[x][y].piece = W_QUEEN;
-                                }
-                                if (x == 4 ) {
-                                    chess_board[x][y].piece = W_KING;
-                                }
-                            }
-                        }
-                    }
-
-                }
+        }
 
 
-                if (hand_buffer != NONE) {
-                    Texture2D piece_texture =  piece_to_pic(hand_buffer,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
-                    DrawTexture(piece_texture,mousePoint.x - SQUARE_WIDTH / 2,mousePoint.y - SQUARE_HEIGHT / 2, WHITE);
-                }
+        if (hand_buffer != NONE) {
+            Texture2D piece_texture =  piece_to_pic(hand_buffer,  wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,blank);
+            DrawTexture(piece_texture,mousePoint.x - SQUARE_WIDTH / 2,mousePoint.y - SQUARE_HEIGHT / 2, WHITE);
+        }
 
+        for (int y = 0; y < BOARD_HEIGHT; y++)
+        {
+            for (int x = 0; x < BOARD_WIDTH; x++)
+            {
+                chess_square cur_sqr = chess_board[x][y];
                 if (squareState[x][y])
                 {
                     if (cur_sqr.piece != NONE && hand_buffer == NONE) {
@@ -406,12 +416,16 @@ int main(void)
                         DrawTexture(piece_texture,board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_WIDTH*y , WHITE);
                         hand_buffer = NONE;
                     }
+
                 }
             }
         }
+    
 
-    EndDrawing();
-    //----------------------------------------------------------------------------------
+
+
+EndDrawing();
+//----------------------------------------------------------------------------------
 }
 
 // De-Initialization
