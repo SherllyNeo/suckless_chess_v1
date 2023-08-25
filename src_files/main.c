@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     /* get args */
     for (int a = 0; a<argc; a++) {
         if (!strcmp(argv[a],"--fen")) {
-            strcpy(fen_string,argv[++a]);
+           fen_string = argv[++a];
         }
     }
 
