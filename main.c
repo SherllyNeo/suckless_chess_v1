@@ -8,6 +8,8 @@
 #define BOARD_WIDTH 8
 #define BOARD_HEIGHT 8
 #define AMOUNT_OF_CHESS_SQUARES BOARD_WIDTH * BOARD_HEIGHT
+#define FONT_SIZE 45
+#define TITLE_SIZE 100
 
 typedef enum {
     W_KING,
@@ -205,6 +207,7 @@ int main(void)
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+        /* Check for mouse position and interaction with board */
         mousePoint = GetMousePosition();
         for (int y = 0; y < BOARD_HEIGHT; y++)
         {
@@ -228,26 +231,23 @@ int main(void)
             }
         }
 
-        // Draw
-        //----------------------------------------------------------------------------------
+        
+        /* toggle show names flag */
         if (IsKeyPressed(KEY_SPACE)) 
             show_names = !show_names;
+
+        /* DRAW */
         BeginDrawing();
-        DrawText("Simple Chess",0, 0, 100, BLACK);
+        DrawText("Simple Chess",0, 0, TITLE_SIZE, BLACK);
 
         ClearBackground(BROWN);
-        int font_size = 45;
-
-        for (int x = 0; x < BOARD_WIDTH; x++)
-            DrawText(letters[x],board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH / 3), board_origin_y + SQUARE_HEIGHT*BOARD_HEIGHT, font_size, GRAY);
-
-        for (int y = 0; y < BOARD_HEIGHT; y++)
-            DrawText(numbers[y],board_origin_x + BOARD_WIDTH - SQUARE_WIDTH + 15,board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT / 3) - 10,font_size, GRAY);
-
         for (int y = 0; y < BOARD_HEIGHT; y++)
         {
+            DrawText(numbers[y],board_origin_x + BOARD_WIDTH - SQUARE_WIDTH + 15,board_origin_y + SQUARE_HEIGHT*y + (SQUARE_HEIGHT / 3) - 10,FONT_SIZE, GRAY);
             for (int x = 0; x < BOARD_WIDTH; x++)
             {
+                DrawText(letters[x],board_origin_x + SQUARE_WIDTH*x + (SQUARE_WIDTH / 3), board_origin_y + SQUARE_HEIGHT*BOARD_HEIGHT, FONT_SIZE, GRAY);
+
                 chess_square cur_sqr = chess_board[x][y];
                 DrawRectangle(board_origin_x + SQUARE_WIDTH*x, board_origin_y + SQUARE_HEIGHT*y, cur_sqr.width, cur_sqr.height, ( (cur_sqr.row % 2) == (cur_sqr.col %2) ) ? WHITE : BEIGE);
                 if (cur_sqr.piece != NONE)   {
