@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define SQUARE_WIDTH 60
 #define SQUARE_HEIGHT 60
@@ -152,10 +153,14 @@ void ResetBoard(chess_square chess_board[BOARD_HEIGHT][BOARD_WIDTH]) {
     }
 }
 
-void ListenForKeys(chess_square chess_board[8][8], chess_piece *hand_buffer) {
+void ListenForKeys(chess_square chess_board[8][8], chess_piece *hand_buffer, int *flip) {
     if (IsKeyPressed(KEY_Q))
     {
         *hand_buffer = W_QUEEN;
+    }
+    if (IsKeyPressed(KEY_F))
+    {
+        *flip = *flip - 1;
     }
     if (IsKeyPressed(KEY_K))
     {
@@ -273,6 +278,50 @@ void DrawBoard(int board_origin_x, int board_origin_y,chess_square chess_board[B
 }
 
 
+void ReverseStrArray(char* arr[], int n)
+{
+    char* temp;
+  
+    // Move from begin and end. Keep
+    // swapping strings. 
+    int j = n - 1;
+    for (int i = 0; i < j; i++) {
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        j--;
+    }
+}
+
+void ReverseBoardArray(chess_square arr[], int n)
+{
+    chess_square temp;
+  
+    // Move from begin and end. Keep
+    // swapping strings. 
+    int j = n - 1;
+    for (int i = 0; i < j; i++) {
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        j--;
+    }
+}
+void ReverseBoard(chess_square chess_board[BOARD_HEIGHT][BOARD_WIDTH],char* letters[8], char* numbers[8]) {
+    ReverseStrArray(letters,8);
+    ReverseStrArray(numbers,8);
+    chess_square tmp[BOARD_HEIGHT][BOARD_WIDTH];
+//     for (int y = 0; y < BOARD_HEIGHT; y++)
+//     {
+//         for (int x = 0; x < BOARD_WIDTH; x++)
+//         {
+//             tmp[x][y] = chess_board[BOARD_WIDTH - x - 1][BOARD_HEIGHT - y - 1];
+//         }
+//     }
+//    memset(chess_board,0,AMOUNT_OF_CHESS_SQUARES*sizeof(chess_square));
+
+}
+
 int main(void)
 {
     const int screenWidth = 900;
@@ -358,6 +407,7 @@ int main(void)
     chess_piece hand_buffer = NONE;
     int squareState[BOARD_WIDTH][BOARD_HEIGHT] = { 0 };
     int show_names = 0;
+    int flip = 0;
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -386,6 +436,14 @@ int main(void)
         }
 
         /* draw board */
+        if (flip) {
+            ReverseStrArray(letters, BOARD_WIDTH);
+            ReverseStrArray(numbers, BOARD_HEIGHT);
+            for (int i = 0; i<BOARD_HEIGHT; i++) {
+                ReverseBoardArray(chess_board[i],BOARD_WIDTH);
+            }
+            flip = 0;
+        }
         DrawBoard(board_origin_x,board_origin_y,chess_board,show_names,numbers,letters,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
 
         /* toggle show names flag */
@@ -407,7 +465,7 @@ int main(void)
         }
 
         /* Listen for keys */
-        ListenForKeys(chess_board, &hand_buffer);
+        ListenForKeys(chess_board, &hand_buffer, &flip);
 
         /* Draw placements */
         DrawPlacement(chess_board, squareState, &hand_buffer,board_origin_x,board_origin_y,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
