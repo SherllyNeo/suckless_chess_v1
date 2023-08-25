@@ -186,6 +186,9 @@ int main(void)
                 if (CheckCollisionPointRec(mousePoint,chess_square_as_rec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                     squareState[x][y] = 1;
                 }
+                else if (CheckCollisionPointRec(mousePoint,chess_square_as_rec) && IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
+                    chess_board[x][y].piece = NONE;
+                }
                 else  {
                     squareState[x][y] = 0;
                 }
