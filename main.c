@@ -88,8 +88,8 @@ int main(void)
     const int screenWidth = 900;
     const int screenHeight = 900;
     chess_square chess_board[BOARD_WIDTH][BOARD_HEIGHT];
-    float board_origin_x = screenHeight/4;
-    float board_origin_y = screenWidth/4;
+    float board_origin_x = screenWidth / 20;
+    float board_origin_y = screenHeight / 10;
 
     for (int y = 0; y < BOARD_HEIGHT; y++)
     {
@@ -143,7 +143,8 @@ int main(void)
         }
     }
 
-    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - easings rectangle array");
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);    // Window configuration flags
+    InitWindow(screenWidth, screenHeight, "Simple Chess");
 
 
     Texture2D wP = LoadTexture("./chess_pieces/wP.png");
@@ -287,6 +288,13 @@ int main(void)
 
                 if (IsKeyDown(KEY_C) && !IsKeyDown(KEY_LEFT_SHIFT))
                 {
+                    for (int y = 0; y < BOARD_HEIGHT; y++)
+                    {
+                        for (int x = 0; x < BOARD_WIDTH; x++)
+                        {
+                            chess_board[x][y].piece = NONE;
+                        }
+                    }
                     for (int y = 0; y < BOARD_HEIGHT; y++)
                     {
                         for (int x = 0; x < BOARD_WIDTH; x++)
