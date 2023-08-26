@@ -211,8 +211,7 @@ int main(int argc, char *argv[])
              history_len = (history_len + 1) % HISTORY_SIZE; 
              history_index = history_len;
              memcpy(chess_board_history[history_len],chess_board,sizeof(chess_board));
-             printf("\nnew length: %d\n",history_len);
-             change_flag = 0;
+            change_flag = 0;
          }
 
         // De-Initialization
