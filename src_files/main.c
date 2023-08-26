@@ -156,9 +156,17 @@ int main(int argc, char *argv[])
         if (flip) {
             ReverseStrArray(letters, BOARD_WIDTH);
             ReverseStrArray(numbers, BOARD_HEIGHT);
-            for (int i = 0; i<BOARD_HEIGHT; i++) {
-                ReverseBoardArray(chess_board[i],BOARD_WIDTH);
+            chess_square tmp[8][8];
+            for(int i = 0;i<8;i++)
+            {
+                for(int j=0;j<8;j++)
+                {
+                    tmp[i][j] = chess_board[8-i-1][8-j-1];
+                }
             }
+
+            memcpy(chess_board,tmp,sizeof(tmp));
+
             flipped = 1 - flipped;
             flip = 0;
         }
