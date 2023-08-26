@@ -111,6 +111,7 @@ int main(int argc, char *argv[])
     int squareState[BOARD_WIDTH][BOARD_HEIGHT] = { 0 };
     int show_names = 0;
     int flip = 0;
+    int flipped = 0;
     int change_flag = 1;
 
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -158,6 +159,7 @@ int main(int argc, char *argv[])
             for (int i = 0; i<BOARD_HEIGHT; i++) {
                 ReverseBoardArray(chess_board[i],BOARD_WIDTH);
             }
+            flipped = 1 - flipped;
             flip = 0;
         }
         DrawBoard(board_origin_x,board_origin_y,chess_board,show_names,numbers,letters,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
@@ -186,7 +188,9 @@ int main(int argc, char *argv[])
         /* Draw placements */
         DrawPlacement(chess_board, squareState, &hand_buffer,board_origin_x,board_origin_y,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
 
-
+        char fen_string[100];
+        board_to_fen(chess_board,fen_string,flipped);
+        printf("\nFEN: %s\n",fen_string);
 
 
 
