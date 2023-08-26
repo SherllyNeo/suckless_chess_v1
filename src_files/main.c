@@ -196,10 +196,13 @@ int main(int argc, char *argv[])
         /* Draw placements */
         DrawPlacement(chess_board, squareState, &hand_buffer,board_origin_x,board_origin_y,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
 
+        /* draw FEN */
         char fen_string[100];
-        board_to_fen(chess_board,fen_string,flipped);
-        printf("\nFEN: %s\n",fen_string);
+        chess_square chess_board_cpy[8][8];
+        memcpy(chess_board_cpy,chess_board,sizeof(chess_board));
+        board_to_fen(chess_board_cpy,fen_string,flipped);
 
+        DrawText(fen_string, board_origin_x / 3, board_origin_y + BOARD_HEIGHT*SQUARE_HEIGHT + SQUARE_HEIGHT * 2, 20, BLACK);
 
 
         EndDrawing();
