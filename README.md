@@ -17,6 +17,10 @@ Many key bindings to spawn pieces, clear the board, or more.
 Displays FEN of current position on screen at all times - 
 
 # Key bindings
+f - flips board to black or white
+
+space - toggles between showing pieces or square names
+
 c - sets board to starting position
 
 C - clears board
@@ -31,7 +35,7 @@ eg:
 
 q spawns a white queen, n spawns a white knight, k spawns a white king
 
-Capitals will spawn the black pieces
+holding left shift will spawn the black pieces
 
 Q spawns a black queen, N spawns a black knight, k spawns a black king
 
