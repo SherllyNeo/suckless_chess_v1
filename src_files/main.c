@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
         }
 
         /* Listen for keys */
-        ListenForKeys(chess_board, chess_board_history,history_len,&history_index,&hand_buffer, &flip,flipped);
+        ListenForKeys(chess_board, chess_board_history,&history_len,&history_index,&hand_buffer, &flip,flipped);
 
         /* Draw placements */
         DrawPlacement(chess_board, squareState, &hand_buffer,board_origin_x,board_origin_y,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
@@ -200,7 +200,7 @@ int main(int argc, char *argv[])
         char fen_string[100];
         chess_square chess_board_cpy[8][8];
         memcpy(chess_board_cpy,chess_board,sizeof(chess_board));
-        board_to_fen(chess_board_cpy,fen_string,flipped,history_len);
+        board_to_fen(chess_board_cpy,fen_string,flipped,history_index);
 
         DrawText(fen_string, board_origin_x, board_origin_y + BOARD_HEIGHT*SQUARE_HEIGHT + SQUARE_HEIGHT * 2, 20, BLACK);
 

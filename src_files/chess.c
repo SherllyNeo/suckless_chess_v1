@@ -312,12 +312,10 @@ char enum_to_fen(chess_piece piece) {
     return cp;
 }
 
-void board_to_fen(chess_square chess_board[8][8], char fen_string[100],int flip,int history_len) {
+void board_to_fen(chess_square chess_board[8][8], char fen_string[100],int flip,int history_index) {
     /* 
        Fen string format is like: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 
        */
-    
-    history_len--;
 
     if (flip) {
         /* unflip */
@@ -388,7 +386,7 @@ void board_to_fen(chess_square chess_board[8][8], char fen_string[100],int flip,
         castling_rights[castling_index++] = 'q';
     }
 
-    sprintf(fen_string,"%s - %c %c %s %d %d",tmp,active_colour,enpass,castling_rights,0,history_len);
+    sprintf(fen_string,"%s - %c %c %s %d %d",tmp,active_colour,enpass,castling_rights,0,history_index);
 }
 
 void parse_fen(chess_square chess_board[8][8],char* fen_string){
@@ -430,7 +428,7 @@ void parse_fen(chess_square chess_board[8][8],char* fen_string){
 }
 
 
-void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_history[100][8][8], int history_len,int* history_index ,chess_piece *hand_buffer, int *flip, int flipped) {
+void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_history[100][8][8], int* history_len,int* history_index ,chess_piece *hand_buffer, int *flip, int flipped) {
     if (IsKeyPressed(KEY_Q))
     {
         *hand_buffer = W_QUEEN;
@@ -482,12 +480,13 @@ void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_hist
     if (IsKeyPressed(KEY_C) && IsKeyDown(KEY_LEFT_SHIFT))
     {
         ClearBoard(chess_board);
+        *history_index = 0;
     }
     if (IsKeyPressed(KEY_L))
     {
         *history_index = *history_index + 1;
-        if (*history_index > history_len) {
-            *history_index = history_len;
+        if (*history_index > *history_len) {
+            *history_index = *history_len;
         }
         memcpy(chess_board,chess_board_history[*history_index],sizeof(chess_board_history[*history_index]));
     }
@@ -503,6 +502,7 @@ void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_hist
     if (IsKeyPressed(KEY_C) && !IsKeyDown(KEY_LEFT_SHIFT))
     {
         ResetBoard(chess_board);
+        *history_len = 0;
     }
 
     if (IsKeyPressed(KEY_D))
@@ -514,7 +514,8 @@ void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_hist
         char fen_string[100];
         chess_square chess_board_cpy[8][8];
         memcpy(chess_board_cpy,chess_board,sizeof(chess_board_cpy));
-        board_to_fen(chess_board_cpy,fen_string,flipped,history_len);
+        board_to_fen(chess_board_cpy,fen_string,flipped,*history_len);
+
         
         FILE *f = fopen(path_to_fen,"a");
         if (f == NULL) {
