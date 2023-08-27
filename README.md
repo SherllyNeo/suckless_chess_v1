@@ -17,6 +17,23 @@ Many key bindings to spawn pieces, clear the board, or more.
 Displays FEN of current position on screen at all times - 
 
 # Key bindings
+c - sets board to starting position
+
+C - clears board
+
+h - undo
+
+l - redo
+
+To spawn a piece to your hand, press the letter for the piece 
+eg:
+
+
+q spawns a white queen, n spawns a white knight, k spawns a white king
+
+Capitals will spawn the black pieces
+
+Q spawns a black queen, N spawns a black knight, k spawns a black king
 
 
 
