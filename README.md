@@ -27,6 +27,9 @@ space - toggles between showing pieces or square names
 
 d will dump current fen to $HOME/.local/share/chess/fen.txt
 
+right click deletes a piece
+
+left click picks up / drops a piece
 
 c - sets board to starting position
 
