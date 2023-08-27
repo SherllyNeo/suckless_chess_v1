@@ -8,13 +8,17 @@ Will produce
 ![Image of fen above rendered](https://github.com/sherllyneo/suckless_chess_v1/blob/main/readme_images/fen.png?raw=true)
 
 
-./chess will show board from starting position
+## ./chess will show board from starting position
+
+![Image of fen above rendered](https://github.com/sherllyneo/suckless_chess_v1/blob/main/readme_images/start.png?raw=true)
+
+## Many key bindings to spawn pieces, clear the board, or more.
 
 
-Many key bindings to spawn pieces, clear the board, or more.
+## Displays FEN of current position on screen at all times - It will naively check for castling rights, move count and more
 
-
-Displays FEN of current position on screen at all times - It will naively check for castling rights, move count and more
+Display square names
+![Image of fen above rendered](https://github.com/sherllyneo/suckless_chess_v1/blob/main/readme_images/square.png?raw=true)
 
 # Key bindings
 f - flips board to black or white
@@ -47,4 +51,13 @@ make
 sudo make install
 
 move assets to $HOME/.local/share/chess/assets
+
+# what this isn't 
+
+This is a board editor, not an analysis board. 
+It will not show a history of moves in PGN, instead only displaying FEN.
+You can move pieces how you like.
+
+This is a simple chess board, not a simple chess engine. Very minimalistic.
+
 
