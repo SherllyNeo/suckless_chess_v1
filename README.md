@@ -21,7 +21,7 @@ f - flips board to black or white
 
 space - toggles between showing pieces or square names
 
-left shift + f will save current fen to $HOME/.local/share/chess/fen.txt
+d will dump current fen to $HOME/.local/share/chess/fen.txt
 
 
 c - sets board to starting position
