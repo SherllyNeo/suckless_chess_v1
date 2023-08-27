@@ -21,6 +21,9 @@ f - flips board to black or white
 
 space - toggles between showing pieces or square names
 
+left shift + f will save current fen to $HOME/.local/share/chess/fen.txt
+
+
 c - sets board to starting position
 
 C - clears board
@@ -40,7 +43,9 @@ holding left shift will spawn the black pieces
 Q spawns a black queen, N spawns a black knight, k spawns a black king
 
 
-
 # Install
 make
 sudo make install
+
+move assets to $HOME/.local/share/chess/assets
+

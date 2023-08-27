@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
         }
 
         /* Listen for keys */
-        ListenForKeys(chess_board, chess_board_history,history_len,&history_index,&hand_buffer, &flip);
+        ListenForKeys(chess_board, chess_board_history,history_len,&history_index,&hand_buffer, &flip,flipped);
 
         /* Draw placements */
         DrawPlacement(chess_board, squareState, &hand_buffer,board_origin_x,board_origin_y,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
