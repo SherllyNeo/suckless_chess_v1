@@ -18,14 +18,14 @@ int main(int argc, char *argv[])
     }
 
 
-    const int screenWidth = 900;
-    const int screenHeight = 900;
+    const int screenWidth = 500;
+    const int screenHeight = 500;
     chess_square chess_board[BOARD_WIDTH][BOARD_HEIGHT];
     chess_square chess_board_history[HISTORY_SIZE][BOARD_WIDTH][BOARD_HEIGHT];
     int history_len = 0;
     int history_index = 0;
-    float board_origin_x = screenWidth / 20;
-    float board_origin_y = screenHeight / 5;
+    float board_origin_x = screenWidth / 2 + SQUARE_WIDTH;
+    float board_origin_y = screenHeight / 2;
 
 
     /* INIT BOARD */
@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
 
         /* DRAW */
         BeginDrawing();
-        DrawText("Simple Chess",0, 0, TITLE_SIZE, BLACK);
+        DrawText("Simple Chess",screenWidth / 2, 0, TITLE_SIZE, BLACK);
 
         ClearBackground(BROWN);
 
@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
         memcpy(chess_board_cpy,chess_board,sizeof(chess_board));
         board_to_fen(chess_board_cpy,fen_string,flipped,history_len);
 
-        DrawText(fen_string, board_origin_x / 3, board_origin_y + BOARD_HEIGHT*SQUARE_HEIGHT + SQUARE_HEIGHT * 2, 20, BLACK);
+        DrawText(fen_string, board_origin_x, board_origin_y + BOARD_HEIGHT*SQUARE_HEIGHT + SQUARE_HEIGHT * 2, 20, BLACK);
 
 
         EndDrawing();
