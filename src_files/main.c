@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
         DrawPlacement(chess_board, squareState, &hand_buffer,board_origin_x,board_origin_y,wP,  wK,  wQ,  wB,  wN,  wR,  bK,  bQ,  bB,  bN,  bR,  bP,  blank);
 
         /* draw FEN */
-        char fen_string[100];
+        char fen_string[500];
         chess_square chess_board_cpy[8][8];
         memcpy(chess_board_cpy,chess_board,sizeof(chess_board));
         board_to_fen(chess_board_cpy,fen_string,flipped,history_index);

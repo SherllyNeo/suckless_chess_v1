@@ -312,7 +312,7 @@ char enum_to_fen(chess_piece piece) {
     return cp;
 }
 
-void board_to_fen(chess_square chess_board[8][8], char fen_string[100],int flip,int history_index) {
+void board_to_fen(chess_square chess_board[8][8], char fen_string[500],int flip,int history_index) {
     /* 
        Fen string format is like: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 
        */
@@ -333,7 +333,7 @@ void board_to_fen(chess_square chess_board[8][8], char fen_string[100],int flip,
 
     int blank_count = 0;
     int string_index = 0;
-    char tmp[50];
+    char tmp[300];
     for (int i = 0; i<8; i++) {
         for (int j = 0; j<8; j++) {
             chess_piece current_piece = chess_board[j][i].piece;  
@@ -480,7 +480,8 @@ void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_hist
     if (IsKeyPressed(KEY_C) && IsKeyDown(KEY_LEFT_SHIFT))
     {
         ClearBoard(chess_board);
-        *history_index = 0;
+        *history_index = 1;
+        *history_len = 1;
     }
     if (IsKeyPressed(KEY_L))
     {
@@ -502,7 +503,8 @@ void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_hist
     if (IsKeyPressed(KEY_C) && !IsKeyDown(KEY_LEFT_SHIFT))
     {
         ResetBoard(chess_board);
-        *history_len = 0;
+        *history_len = 1;
+        *history_index = 1;
     }
 
     if (IsKeyPressed(KEY_D))
@@ -511,7 +513,7 @@ void ListenForKeys(chess_square chess_board[8][8], chess_square chess_board_hist
         char path_to_fen[100];
         sprintf(path_to_fen,"%s/.local/share/chess/fen.txt",home);
 
-        char fen_string[100];
+        char fen_string[500];
         chess_square chess_board_cpy[8][8];
         memcpy(chess_board_cpy,chess_board,sizeof(chess_board_cpy));
         board_to_fen(chess_board_cpy,fen_string,flipped,*history_len);
