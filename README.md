@@ -14,7 +14,7 @@ Will produce
 Many key bindings to spawn pieces, clear the board, or more.
 
 
-Displays FEN of current position on screen at all times - 
+Displays FEN of current position on screen at all times - It will naively check for castling rights, move count and more
 
 # Key bindings
 f - flips board to black or white
@@ -34,7 +34,6 @@ l - redo
 
 To spawn a piece to your hand, press the letter for the piece 
 eg:
-
 
 q spawns a white queen, n spawns a white knight, k spawns a white king
 
